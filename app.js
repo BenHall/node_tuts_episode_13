@@ -25,7 +25,6 @@ app.configure('production', function () {
   app.use(express.errorHandler());
 });
 
-app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 
 app.dynamicHelpers(
@@ -89,8 +88,10 @@ app.get('/products', requiresLogin, function(req, res) {
 });
 
 app.get('/products/new', requiresLogin, function(req, res) {
+  var product = req.body && req.body.product || products.new()
+  product.photos = {}
   res.render('products/new', {locals: {
-    product: req.body && req.body.product || products.new()
+    product: product
   }});
 });
 
@@ -172,3 +173,4 @@ app.post('/photos', function(req, res) {
 });
 
 app.listen(4000);
+console.log('Express server started on port %s', app.address().port);

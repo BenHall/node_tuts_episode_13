@@ -3,13 +3,15 @@ var products = [
   id: 1,
   name : 'Mac Book Pro',
   description: 'Apple 13 inch Mac Book Pro Notebook',
-  price: 1000
+  price: 1000,
+  photos: []
 },
 {
   id: 2,
   name : 'iPad',
   description: 'Apple 64GB 3G iPad',
-  price: 899
+  price: 899,
+  photos: []
 }
 ];
 
