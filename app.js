@@ -1,20 +1,17 @@
 var express = require('express');
-var multipart = require('multipart');
+var multipart = require('multipart/lib/multipart');
 var fs = require('fs');
 
 var app = express.createServer();
 
-var MemStore = require('connect/middleware/session/memory');
 
 app.configure(function() {
   app.use(express.logger());
-  app.use(express.bodyDecoder());
+  app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.staticProvider(__dirname + '/static'));
-  app.use(express.cookieDecoder());
-  app.use(express.session({store: MemStore( {
-    reapInterval: 60000 * 10
-  })}));
+  app.use(express.static(__dirname + '/static'));
+  app.use(express.cookieParser());
+  app.use(express.session({store: require('connect').session.MemoryStore( {reapInterval: 60000 * 10} ), secret: 'secret_key_00000' }));
 });
 
 app.configure('development', function () {
